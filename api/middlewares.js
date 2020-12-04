@@ -42,7 +42,7 @@ const validateActionsId = async (req, res, next) => {
 
 const validateActionBody = (req, res, next) => {
     const { body } = req; 
-    if (!body.project_id || !body.descrption || !body.notes) {
+    if (!body.project_id || !body.description || !body.notes) {
         res.status(400).json({message: 'Include all required fields - project_id, description, and notes!'}); 
     } else {
         next();
