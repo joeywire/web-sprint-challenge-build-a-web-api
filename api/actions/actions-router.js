@@ -1,11 +1,12 @@
 const express = require('express');
 const Action = require('./actions-model'); 
+const middleware = require('../middlewares');
 
 const router = express.Router(); 
 
 //ENDPOINTS 
 //CREATE
-router.post('/', async (req, res) => {
+router.post('/', middleware.validateProjID, async (req, res) => {
     const { body } = req;
     console.log(body);
     try { 
