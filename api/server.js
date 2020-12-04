@@ -10,7 +10,7 @@ const server = express();
 server.use(express.json()); 
 server.use(middleware.logger);
 //Routes 
-// server.use('/api/actions', actionsRouter); 
+server.use('/api/actions', actionsRouter); 
 server.use('/api/projects', projectsRouter); 
 
 
