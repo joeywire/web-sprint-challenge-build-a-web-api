@@ -6,7 +6,7 @@ const router = express.Router();
 
 //ENDPOINTS 
 //CREATE
-router.post('/', middleware.validateProjID, async (req, res) => {
+router.post('/', middleware.validateProjIdFromBody, async (req, res) => {
     const { body } = req;
     console.log(body);
     try { 
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', middleware.validateActionsId, async (req, res) => {
     const { id } = req.params;
     try { 
         const actions = await Action.get(id);
