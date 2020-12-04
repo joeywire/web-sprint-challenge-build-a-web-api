@@ -1,6 +1,7 @@
 const express = require('express');
 const Action = require('./actions-model'); 
 const middleware = require('../middlewares');
+const { validateActionBody } = require('../middlewares');
 
 const router = express.Router(); 
 
@@ -36,7 +37,7 @@ router.get('/:id', middleware.validateActionsId, async (req, res) => {
     }
 })
 //UPDATE
-router.put('/:id', async (req, res) => {
+router.put('/:id', middleware.validateActionsId, validateActionBody, async (req, res) => {
     const { id } = req.params; 
     const { body } = req; 
     try { 

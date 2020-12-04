@@ -1,5 +1,7 @@
 const express = require('express');
 const Project = require('./projects-model'); 
+const middleware = require('../middlewares');
+const { validateProjectBody } = require('../middlewares');
 
 
 const router=express.Router();
@@ -26,7 +28,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', middleware.validateProjId, async (req, res) => {
     const { id } = req.params;
     try { 
         const projects = await Project.get(id);
@@ -36,7 +38,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-router.get('/:id/actions', async (req, res) => {
+router.get('/:id/actions', middleware.validateProjId, async (req, res) => {
     const { id } = req.params; 
     try { 
         const projActions = await Project.getProjectActions(id); 
@@ -46,7 +48,7 @@ router.get('/:id/actions', async (req, res) => {
     }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', middleware.validateProjId, validateProjectBody, async (req, res) => {
     const { id } = req.params; 
     const { body } = req; 
     try { 
@@ -57,7 +59,7 @@ router.put('/:id', async (req, res) => {
     }
  });
 
- router.delete('/:id', async (req, res) => {
+ router.delete('/:id', middleware.validateProjId, async (req, res) => {
      const { id } = req.params;
      try {
          const deletion = await Project.remove(id); 

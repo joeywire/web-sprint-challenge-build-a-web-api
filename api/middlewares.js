@@ -40,11 +40,44 @@ const validateActionsId = async (req, res, next) => {
     }
 }
 
-//PROJECT MIDDLEWARE
+const validateActionBody = (req, res, next) => {
+    const { body } = req; 
+    if (!body.project_id || !body.descrption || !body.notes) {
+        res.status(400).json({message: 'Include all required fields - project_id, description, and notes!'}); 
+    } else {
+        next();
+    }
+}
 
+//PROJECT MIDDLEWARE
+const validateProjId = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+        const project = await Project.get(id);
+        if (!project) {
+            res.status(404).json({ message: `No Project with id: ${id} found`});
+        } else {
+            next();
+        }
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
+const validateProjectBody = (req, res, next) => {
+    const { body } = req; 
+    if (!body.name || !body.description) { 
+        res.status(400).json({ message: 'Include all required fields - name and description - SPELLING!'})
+    } else {
+        next();
+    }
+}
 
 module.exports = {
     logger,
     validateProjIdFromBody, 
-    validateActionsId
+    validateActionsId, 
+    validateActionBody, 
+    validateProjId, 
+    validateProjectBody
 }
