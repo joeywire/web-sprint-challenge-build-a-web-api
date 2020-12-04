@@ -7,7 +7,7 @@ const router = express.Router();
 
 //ENDPOINTS 
 //CREATE
-router.post('/', middleware.validateProjIdFromBody, async (req, res) => {
+router.post('/', middleware.validateProjIdFromBody, middleware.validateActionBody, async (req, res) => {
     const { body } = req;
     console.log(body);
     try { 
