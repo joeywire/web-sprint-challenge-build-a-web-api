@@ -1,7 +1,14 @@
 const express = require('express');
+
+
 const server = express();
 
-// Complete your server here!
-// Do NOT `server.listen()` inside this file!
+//Middleware _)_)_)_)_)_)_)_)_)_)_)_)_)_)_)_)_)
+server.use(express.json()); 
+
+//Catch All End Point 
+server.get('/', (req, res) => {
+    res.send(`<h1> JL-LambdaSchool-API-Sprint </h1>`); 
+}); 
 
 module.exports = server;
