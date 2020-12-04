@@ -9,7 +9,7 @@ const router=express.Router();
 
 //ENDPOINTS 
 
-router.post('/', async (req, res) => {
+router.post('/', middleware.validateProjectBody, async (req, res) => {
     const { body } = req; 
     try { 
         const newProj = await Project.insert(body); 
